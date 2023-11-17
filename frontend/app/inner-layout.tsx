@@ -2,12 +2,12 @@
 
 import { ThorinGlobalStyles, lightTheme } from "@ensdomains/thorin";
 import { MetaMaskUIProvider } from "@metamask/sdk-react-ui";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
 import { goerli } from "viem/chains";
 import { WagmiConfig, createConfig, mainnet } from "wagmi";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const projectId = "22b0d61ef63060711f186c08ed4c1c4d";
 const metadata = {
@@ -25,8 +25,6 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: 0,
-      cacheTime: 10 * 60 * 1000,
-      staleTime: 10 * 60 * 1000,
     },
   },
 });

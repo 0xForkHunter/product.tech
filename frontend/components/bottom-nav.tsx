@@ -6,6 +6,7 @@ import { useAccount } from "wagmi";
 import { Flex } from "./flex";
 import { Add, Person, Search } from "@mui/icons-material";
 import { MAIN_COLOR } from "@/constants";
+import { Typography } from "@ensdomains/thorin";
 
 export function BottomNav() {
   const pathname = usePathname();
@@ -69,12 +70,11 @@ export function BottomNav() {
             textDecoration: "none",
             height: "64px",
             width: "100%",
-            color: item.check(pathname) ? MAIN_COLOR : undefined,
           }}
         >
-          <Flex y xc style={{}}>
-            {item.icon}
-            {item.label}
+          <Flex y xc>
+            <Typography color={item.check(pathname) ? "accent" : undefined}>{item.icon}</Typography>
+            <Typography color={item.check(pathname) ? "accent" : undefined}>{item.label}</Typography>
           </Flex>
         </Link>
       ))}

@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           maxWidth: "min(100vw, 500px)",
           minHeight: "100vh",
           margin: "auto",
-          border: "1px solid grey",
+          // border: "1px solid grey",
         }}
       >
         <InnerLayout>{children}</InnerLayout>

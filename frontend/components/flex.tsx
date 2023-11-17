@@ -37,6 +37,7 @@ interface Props {
   fullwidth?: boolean;
   basis?: string;
   style?: any;
+  onClick?: () => void;
 }
 
 const DEFAULT_GAP = 8;
@@ -67,6 +68,7 @@ const Flex = forwardRef<HTMLDivElement, Props>(
       loading,
       basis,
       style,
+      onClick,
       ...rest
     },
     ref
@@ -123,7 +125,7 @@ const Flex = forwardRef<HTMLDivElement, Props>(
     }
 
     return (
-      <div ref={ref} {...rest} style={{ ...innerStyle, ...style }}>
+      <div ref={ref} {...rest} style={{ ...innerStyle, ...style }} onClick={onClick}>
         {children}
       </div>
     );
