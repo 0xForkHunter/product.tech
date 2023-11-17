@@ -12,7 +12,7 @@ module Products
     def call
       raise "Product slug is mandatory" unless slug
       raise "Product not found" unless product_hunt_object
-      binding.pry
+
       Product.create!(product_data)
     end
 
