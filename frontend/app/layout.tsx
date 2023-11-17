@@ -13,7 +13,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{
+          maxWidth: "min(100vw, 500px)",
+          minHeight: "100vh",
+          margin: "auto",
+          border: "1px solid grey",
+        }}
+      >
         <InnerLayout>{children}</InnerLayout>
       </body>
     </html>
