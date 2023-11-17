@@ -1,6 +1,6 @@
 "use client";
 
-import { Bottombar } from "@/components/bottombar";
+import { BottomNav } from "@/components/bottom-nav";
 import { Flex } from "@/components/flex";
 import { Topbar } from "@/components/topbar";
 import { ReactNode } from "react";
@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <Flex>
       <Topbar />
       {children}
-      <Bottombar />
+      <BottomNav />
     </Flex>
   );
 }
