@@ -2,10 +2,10 @@
 
 import { ThorinGlobalStyles, lightTheme } from "@ensdomains/thorin";
 import { MetaMaskUIProvider } from "@metamask/sdk-react-ui";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
-import { createPublicClient, http } from "viem";
 import { goerli } from "viem/chains";
 import { WagmiConfig, createConfig, mainnet } from "wagmi";
 
@@ -20,21 +20,32 @@ const chains = [goerli];
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 createWeb3Modal({ wagmiConfig, projectId, chains });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 0,
+    },
+  },
+});
+
 export const InnerLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <ThorinGlobalStyles />
-      <WagmiConfig config={wagmiConfig}>
-        <MetaMaskUIProvider
-          sdkOptions={{
-            dappMetadata: {
-              name: "Demo UI React App",
-            },
-          }}
-        >
-          {children}
-        </MetaMaskUIProvider>
-      </WagmiConfig>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={lightTheme}>
+        <ThorinGlobalStyles />
+        <WagmiConfig config={wagmiConfig}>
+          <MetaMaskUIProvider
+            sdkOptions={{
+              dappMetadata: {
+                name: "Demo UI React App",
+              },
+            }}
+          >
+            {children}
+          </MetaMaskUIProvider>
+        </WagmiConfig>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
