@@ -55,7 +55,10 @@ export function BottomNav() {
         width: "100%",
         maxWidth: "500px",
         transform: "translateX(-50%)",
+        backgroundColor: "white",
+        border: "1px solid grey",
         borderTop: "1px solid #CDD7E1",
+        zIndex: 2,
       }}
     >
       {paths.map((item) => (

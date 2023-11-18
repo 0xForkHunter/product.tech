@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "white" }}>
       <body
         className={inter.className}
         style={{
@@ -21,6 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           minHeight: "100vh",
           margin: "auto",
           border: "1px solid grey",
+          paddingBottom: "70px",
+          overflow: "auto",
         }}
       >
         <InnerLayout>{children}</InnerLayout>

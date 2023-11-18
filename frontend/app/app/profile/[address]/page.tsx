@@ -5,8 +5,9 @@ import { ProductItem } from "@/components/product-item";
 import { UserProfile } from "@/components/user-profile";
 import { useVerifyWorldcoinProofApi } from "@/hooks/useWorldcoinApi";
 import { fetchHoldings } from "@/lib/product-tech-graph";
-import { shortAddress } from "@/lib/utils";
-import { Button, Typography } from "@ensdomains/thorin";
+import { formatToDisplayString, shortAddress } from "@/lib/utils";
+import { Button, Card, Typography } from "@ensdomains/thorin";
+import { KeyOutlined, TransitEnterexitOutlined } from "@mui/icons-material";
 import { Divider } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { CredentialType, IDKitWidget, useIDKit } from "@worldcoin/idkit";
@@ -49,7 +50,23 @@ export default function ProfilePage({ params }: { params: { address: `0x${string
             </Button>
           )}
         </Flex>
-        {isOwnProfile && <Flex></Flex>}
+        {isOwnProfile && (
+          <Flex x gap3>
+            <Card style={{ gap: 0, flexBasis: "100%" }}>
+              <KeyOutlined />
+              <Typography fontVariant="headingFour">0.003 ETH</Typography>
+              <Typography fontVariant="small">Portfolio value</Typography>
+            </Card>
+            <Flex y style={{ flexBasis: "100%" }} gap1>
+              <Card style={{ gap: 0 }}>
+                <TransitEnterexitOutlined />
+                <Typography fontVariant="headingFour">0.00012 ETH</Typography>
+                <Typography fontVariant="small">Fees earned</Typography>
+              </Card>
+              <Button size="small">Claim fees</Button>
+            </Flex>
+          </Flex>
+        )}
       </Flex>
       {open && (
         <IDKitWidget
