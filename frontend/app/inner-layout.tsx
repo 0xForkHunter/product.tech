@@ -6,8 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
-import { goerli } from "viem/chains";
-import { WagmiConfig, createConfig, mainnet } from "wagmi";
+import { celoAlfajores, goerli } from "viem/chains";
+import { WagmiConfig } from "wagmi";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const projectId = "22b0d61ef63060711f186c08ed4c1c4d";
 const metadata = {
@@ -16,7 +18,7 @@ const metadata = {
   url: "https://web3modal.com",
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
-const chains = [goerli];
+const chains = [celoAlfajores];
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 createWeb3Modal({ wagmiConfig, projectId, chains });
 
@@ -34,6 +36,7 @@ export const InnerLayout = ({ children }: { children: ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={lightTheme}>
         <ThorinGlobalStyles />
+        <ToastContainer />
         <WagmiConfig config={wagmiConfig}>
           <MetaMaskUIProvider
             sdkOptions={{

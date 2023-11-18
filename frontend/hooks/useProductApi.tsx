@@ -1,6 +1,6 @@
 "use client";
 
-import { BASE_API_URL } from "@/constants";
+import { BASE_API_URL } from "@/data/constants";
 import { useQuery } from "@tanstack/react-query";
 
 interface Product {
@@ -27,5 +27,15 @@ export const useGetProducts = () => {
       fetch(BASE_API_URL + "/products")
         .then((res) => res.json())
         .then((res) => res.products as Product[]),
+  });
+};
+
+export const useGetProductFromSlug = (slug: string) => {
+  return useQuery({
+    queryKey: ["useGetProducts", slug],
+    queryFn: () =>
+      fetch(BASE_API_URL + "/products", { headers: { slug: slug } })
+        .then((res) => res.json())
+        .then((res) => res.products[0] as Product),
   });
 };
