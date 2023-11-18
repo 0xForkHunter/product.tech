@@ -31,9 +31,10 @@ export const useGetProducts = () => {
   });
 };
 
-export const useGetProductFromSlug = (slug?: string) => {
+export const useGetProductFromSlug = (slug?: string, options?: { enabled?: boolean }) => {
   return useQuery({
     enabled: !!slug,
+    ...options,
     queryKey: ["useGetProducts", slug],
     queryFn: () =>
       fetch(BASE_API_URL + `/products/preview?slug=${slug}`)
@@ -45,7 +46,11 @@ export const useGetProductFromSlug = (slug?: string) => {
 export const useCreateProductApi = () => {
   return useMutation({
     mutationFn: (args: { slug: string; submitter_address: string; safe_address: string }) =>
-      fetch(BASE_API_URL + "/products", { method: "POST", body: JSON.stringify({ product: args }) })
+      fetch(BASE_API_URL + "/products", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify({ product: args }),
+      })
         .then((res) => res.json())
         .then((res) => res.product as Product),
   });

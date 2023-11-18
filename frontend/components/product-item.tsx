@@ -5,8 +5,12 @@ import { useRouter } from "next/navigation";
 import { Flex } from "./flex";
 import { Avatar, Typography } from "@ensdomains/thorin";
 import styled from "styled-components";
-import { Product } from "@/hooks/useProductApi";
+import { Product, useGetProductFromSlug } from "@/hooks/useProductApi";
 import { ProductProfile } from "./product-profile";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { CircularProgress } from "@mui/material";
+import { Skeleton } from "@mui/joy";
 
 const Container = styled(Flex)`
   &:hover {
@@ -15,13 +19,21 @@ const Container = styled(Flex)`
 `;
 
 interface Props {
-  product: Product;
+  product?: Product;
+  slug?: string;
 }
 
-export function ProductItem({ product }: Props) {
+export function ProductItem({ product, slug }: Props) {
   const router = useRouter();
-  const numberOfHolders = 3;
-  const buyPrice = 1000000000000000000n;
+
+  const { data: prod } = useGetProductFromSlug(slug, { enabled: !product });
+
+  const internalProduct = useMemo(() => {
+    if (product) return product;
+    else return prod;
+  }, [prod, product]);
+
+  if (!internalProduct) return <Skeleton variant="rectangular" width="100%" height="30px" />;
 
   return (
     <Container
@@ -29,9 +41,9 @@ export function ProductItem({ product }: Props) {
       xsb
       yc
       style={{ cursor: "pointer", padding: "8px 16px" }}
-      onClick={() => router.push(`/app/product/${product.slug}`)}
+      onClick={() => router.push(`/app/product/${internalProduct.slug}`)}
     >
-      <ProductProfile product={product} />
+      <ProductProfile product={internalProduct} />
       <ChevronRight />
     </Container>
   );

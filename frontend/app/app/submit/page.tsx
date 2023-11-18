@@ -15,9 +15,9 @@ import { useAccount } from "wagmi";
 export default function SubmitPage() {
   const [value, setValue] = useState("");
   const createProductApi = useCreateProductApi();
-  const [safe, setSafe] = useState<string>();
-  const [slug, setSlug] = useState<string>();
   const { address } = useAccount();
+  const [safe, setSafe] = useState<string>(address || "");
+  const [slug, setSlug] = useState<string>();
   const { data: product, isLoading: isProductLoading } = useGetProductFromSlug(slug);
   const router = useRouter();
   const { executeTx, isLoading } = useCreateProduct(async () => {
@@ -84,10 +84,14 @@ export default function SubmitPage() {
             {product.description}
           </Typography>
           {/* <ImageGallery images={product.media} /> */}
-          <Button disabled={isCreateSafeLoading || !!safe} onClick={() => createSafe().then((res) => setSafe(res))}>
+          {/* <Button
+            loading={isCreateSafeLoading}
+            disabled={isCreateSafeLoading || !!safe}
+            onClick={() => createSafe().then((res) => setSafe(res))}
+          >
             Create Safe
-          </Button>
-          <Button disabled={!slug || isLoading || !safe} onClick={handleAddProduct}>
+          </Button> */}
+          <Button loading={isLoading} disabled={!slug || isLoading || !safe} onClick={handleAddProduct}>
             Submit
           </Button>
         </Flex>

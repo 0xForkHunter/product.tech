@@ -27,9 +27,9 @@ export function BottomNav() {
         label: "Submit",
       },
       {
-        path: "/app/profile",
+        path: `/app/profile/${address}`,
         icon: <Person />,
-        check: (pathname: string) => pathname === "/app/profile",
+        check: (pathname: string) => pathname.startsWith("/app/profile"),
         label: "Profile",
       },
       // {
@@ -38,7 +38,7 @@ export function BottomNav() {
       //   label: "Points",
       // },
     ],
-    []
+    [address]
   );
 
   return (
