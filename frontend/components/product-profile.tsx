@@ -11,10 +11,11 @@ import { IconButton } from "@mui/material";
 
 interface Props {
   product: Product;
+  subtitle?: string;
   showLink?: boolean;
 }
 
-export const ProductProfile: FC<Props> = ({ product, showLink }) => {
+export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
   return (
     <Flex x yc gap2>
       <div style={{ height: "50px", width: "50px" }}>
@@ -31,7 +32,7 @@ export const ProductProfile: FC<Props> = ({ product, showLink }) => {
         </Flex>
         <Typography fontVariant="small" weight="light" style={{ marginTop: "-5px" }}>
           {/* {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH */}
-          {product.tagline}
+          {subtitle}
         </Typography>
       </Flex>
     </Flex>

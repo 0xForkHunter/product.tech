@@ -2,14 +2,10 @@ const GRAPH_URL = "https://api.thegraph.com/subgraphs/name/rubensousadinis/produ
 
 const GetHolders = `
 query GetHolders($slug: ID){
-  keyHolders(where: {product: $slug}) {
-    product {
-      supply
-      id
-      holders {
-        wallet
-        keysAmount
-      }
+  product(id: $slug) {
+    holders {
+      keysAmount
+      wallet
     }
   }
 }
@@ -27,16 +23,14 @@ query GetHoldings($address: ID){
 `;
 
 export interface fetchHoldersResponse {
-  keyHolders: {
-    product: {
-      supply: string;
-      id: string;
-      holders: {
-        wallet: string;
-        keysAmount: string;
-      }[];
-    };
-  }[];
+  product: {
+    supply: string;
+    id: string;
+    holders: {
+      wallet: string;
+      keysAmount: string;
+    }[];
+  };
 }
 
 export const fetchHolders = async (slug: string) => {

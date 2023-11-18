@@ -70,15 +70,13 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         <Typography style={{ padding: "16px" }} fontVariant="headingFour">
           Supporters
         </Typography>
-        {holders?.keyHolders.flatMap((item) =>
-          item.product.holders.map((holder) => (
-            <UserItem
-              key={holder.wallet}
-              address={holder.wallet as `0x${string}`}
-              subtitle={`Owns ${holder.keysAmount} keys`}
-            />
-          ))
-        )}
+        {holders?.product.holders.map((holder) => (
+          <UserItem
+            key={holder.wallet}
+            address={holder.wallet as `0x${string}`}
+            subtitle={`Owns ${holder.keysAmount} keys`}
+          />
+        ))}
       </Flex>
     </>
   );
