@@ -2,7 +2,7 @@
 
 import { Flex } from "@/components/flex";
 import { useGetProductFromSlug } from "@/hooks/useProductApi";
-import { Button, Typography } from "@ensdomains/thorin";
+import { Button, Tooltip, Typography } from "@ensdomains/thorin";
 import { CircularProgress, Divider } from "@mui/material";
 import { Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import ImageGallery from "@/components/gallery";
@@ -80,12 +80,22 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           {data.description}
         </Typography>
 
-        <Typography style={{ padding: "16px" }} fontVariant="headingFour"></Typography>
+        <Flex yc style={{ padding: "0 16px 15px" }}>
+          <Typography color="accent" weight="light" fontVariant="small" style={{ flexBasis: "100%" }}>
+            Product earnings: 0.0002 ETH
+          </Typography>
+          <Tooltip content="Only the product owner can collect product owners">
+            <Button style={{ width: "200px" }} disabled size="small">
+              Collect
+            </Button>
+          </Tooltip>
+        </Flex>
 
         <Divider />
         <Typography style={{ padding: "16px" }} fontVariant="headingFour">
           Holders
         </Typography>
+
         {holders?.product?.holders.map((holder) => (
           <UserItem
             key={holder.wallet}
