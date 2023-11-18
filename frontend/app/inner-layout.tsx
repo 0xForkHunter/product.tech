@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components";
 import { celoAlfajores, goerli } from "viem/chains";
 import { WagmiConfig } from "wagmi";
 import { ToastContainer } from "react-toastify";
+import { CssVarsProvider } from "@mui/joy/styles";
 import "react-toastify/dist/ReactToastify.css";
 
 const projectId = "22b0d61ef63060711f186c08ed4c1c4d";
@@ -34,19 +35,35 @@ const queryClient = new QueryClient({
 export const InnerLayout = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider
+        theme={{
+          ...lightTheme,
+          colors: {
+            ...lightTheme.colors,
+            // accentDim: "#ff6154",
+            // accentSurface: "#ff6154",
+            // textAccent: "#ff6154",
+            // accentPrimary: "#ff6154",
+            // accent: "#ff6154",
+            // accentLight: "#ff6154",
+            // textPrimary: "#ff6154",
+            // accentActive: "#ff6154",
+            // accentBright: "#ff6154",
+          },
+        }}
+      >
         <ThorinGlobalStyles />
         <ToastContainer />
         <WagmiConfig config={wagmiConfig}>
-          <MetaMaskUIProvider
-            sdkOptions={{
-              dappMetadata: {
-                name: "Demo UI React App",
-              },
-            }}
-          >
-            {children}
-          </MetaMaskUIProvider>
+          {/*<MetaMaskUIProvider
+              sdkOptions={{
+                dappMetadata: {
+                  name: "Demo UI React App",
+                },
+              }}
+            > */}
+          {children}
+          {/* </MetaMaskUIProvider> */}
         </WagmiConfig>
       </ThemeProvider>
     </QueryClientProvider>

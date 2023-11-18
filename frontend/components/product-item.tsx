@@ -16,6 +16,7 @@ interface Props {
   slug: string;
   avatar: string;
   name: string;
+  tagline: string;
   // numberOfHolders: number;
   // buyPrice: bigint;
 }
@@ -25,6 +26,7 @@ export function ProductItem({
   // numberOfHolders, buyPrice,
   avatar,
   name,
+  tagline,
 }: Props) {
   const router = useRouter();
   const numberOfHolders = 3;
@@ -36,7 +38,7 @@ export function ProductItem({
       xsb
       yc
       style={{ cursor: "pointer", padding: "8px 16px" }}
-      onClick={() => router.push(`/product/${slug}`)}
+      onClick={() => router.push(`/app/product/${slug}`)}
     >
       <Flex x yc gap2>
         <div style={{ height: "50px", width: "50px" }}>
@@ -45,7 +47,8 @@ export function ProductItem({
         <Flex y gap={0.5}>
           <Typography fontVariant="bodyBold">{name}</Typography>
           <Typography fontVariant="small" color="accent" weight="light">
-            {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH
+            {/* {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH */}
+            {tagline}
           </Typography>
         </Flex>
       </Flex>

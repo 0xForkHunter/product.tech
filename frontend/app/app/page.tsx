@@ -10,7 +10,13 @@ export default function AppPage() {
   return (
     <Flex y>
       {data?.map((product) => (
-        <ProductItem key={product.id} avatar={product.thumbnail_url} name={product.name} slug={product.slug} />
+        <ProductItem
+          key={product.id}
+          avatar={product.thumbnail_url}
+          name={product.name}
+          slug={product.slug}
+          tagline={product.tagline}
+        />
       ))}
     </Flex>
   );

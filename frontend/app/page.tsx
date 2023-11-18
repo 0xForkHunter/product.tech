@@ -21,7 +21,7 @@ export default function Home() {
       </Typography>
 
       <Flex y xc gap2>
-        <MetaMaskButton theme={"light"} color="white"></MetaMaskButton>
+        {/* <MetaMaskButton theme={"light"} color="white"></MetaMaskButton> */}
         <w3m-button />
         <Typography fontVariant="label">Connect using your favorite wallet provider</Typography>
       </Flex>

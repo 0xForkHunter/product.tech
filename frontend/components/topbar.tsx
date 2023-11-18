@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Flex } from "./flex";
 import { useRouter } from "next/navigation";
-import { APP_LOGO_SMALL } from "@/data/constants";
+import { APP_LOGO, APP_LOGO_SMALL } from "@/data/constants";
 
 export const Topbar = () => {
   const router = useRouter();
@@ -22,9 +22,9 @@ export const Topbar = () => {
         style={{ cursor: "pointer" }}
         onClick={() => router.push("/app")}
         alt="App logo"
-        src={APP_LOGO_SMALL}
-        height={40}
-        width={40}
+        src={APP_LOGO}
+        height={60}
+        width={120}
       />
 
       <w3m-account-button />
