@@ -16,7 +16,7 @@ export default function SubmitPage() {
   const [value, setValue] = useState("");
   const createProductApi = useCreateProductApi();
   const { address } = useAccount();
-  const [safe, setSafe] = useState<string>(address || "");
+  const [safe, setSafe] = useState<string>("");
   const [slug, setSlug] = useState<string>();
   const { data: product, isLoading: isProductLoading } = useGetProductFromSlug(slug);
   const router = useRouter();
@@ -83,14 +83,14 @@ export default function SubmitPage() {
           <Typography weight="light" fontVariant="body">
             {product.description}
           </Typography>
-          {/* <ImageGallery images={product.media} /> */}
-          {/* <Button
+          <ImageGallery images={product.media} />
+          <Button
             loading={isCreateSafeLoading}
             disabled={isCreateSafeLoading || !!safe}
             onClick={() => createSafe().then((res) => setSafe(res))}
           >
             Create Safe
-          </Button> */}
+          </Button>
           <Button loading={isLoading} disabled={!slug || isLoading || !safe} onClick={handleAddProduct}>
             Submit
           </Button>
