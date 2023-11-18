@@ -59,7 +59,7 @@ export const useGetProductData = (slug: string) => {
   } = useContractRead({
     ...PRODUCT_TECH_CONTRACT,
     functionName: "getBuyPriceAfterFee",
-    args: [slug, BigInt(1)],
+    args: [slug],
     enabled: !!slug,
   });
 
@@ -70,7 +70,7 @@ export const useGetProductData = (slug: string) => {
   } = useContractRead({
     ...PRODUCT_TECH_CONTRACT,
     functionName: "getBuyPrice",
-    args: [slug, BigInt(1)],
+    args: [slug],
     enabled: !!slug,
   });
 
@@ -81,7 +81,7 @@ export const useGetProductData = (slug: string) => {
   } = useContractRead({
     ...PRODUCT_TECH_CONTRACT,
     functionName: "getSellPrice",
-    args: [slug, BigInt(1)],
+    args: [slug],
     enabled: !!slug,
   });
 
