@@ -4,11 +4,14 @@ pragma solidity ^0.8.19;
 
 contract ProductKeys {
   // Fee percentages
-  uint256 public protocolFeePercent;
+  uint256 public holderFeePercent;
   uint256 public productFeePercent;
 
   // productKeys (productSlug string, buyer address, amount uint256)  
   mapping(string => mapping(address => uint256)) public productKeys;
+
+  // productHolderFees (productSlug string, holder address, amount uint256)  
+  mapping(string => mapping(address => uint256)) public productHolderFees;
 
   // fees  (owner address, productSlug string)
   mapping(address => string) public owners;
@@ -34,40 +37,45 @@ contract ProductKeys {
   /**
     * Event emitted when a Product key is bought.
     * _productSlug the Product slug from where the keys are bought
-    * _buyer is the buyer of the keys
+    * _trader is the buyer of the keys
     * _amount_of_keys is the amount of keys bought
     * _ethSpent is the full amount of eth spent
     * _ownerFee is the fee paid to the owner
     */
   event ProductKeyBought(
     string  _productSlug,
-    address indexed _buyer,
+    address indexed _trader,
     uint256 _amountOfKeys,
     uint256 _ethSpent,
-    uint256 _ownerFee
+    uint256 _ownerFee,
+    uint256 _sellPrice,
+    uint256 _nextPrice
   );
 
   /**
     * Event emitted when a Product key is sold.
     * _productSlug the Product slug from where the keys are sold
-    * _buyer is the buyer of the keys
+    * _trader is the buyer of the keys
     * _amount_of_keys is the amount of keys sold
     * _ethSpent is the full amount of eth return
     * _ownerFee is the fee paid to the owner
     */
-  event productKeysold(
+  event ProductKeySold(
     string  _productSlug,
-    address indexed _buyer,
+    address indexed _trader,
     uint256 _amountOfKeys,
     uint256 _ethSpent,
-    uint256 _ownerFee
+    uint256 _ownerFee,
+    uint256 _sellPrice,
+    uint256 _nextPrice
   );
 
   /**
     * Contract initialization.
     */
-  constructor(uint256 productFee) {
+  constructor(uint256 productFee, uint256 holderFee) {
     productFeePercent = productFee;
+    holderFeePercent = holderFee;
   }
 
   function createProduct(address safe, string memory name) public {
@@ -75,39 +83,36 @@ contract ProductKeys {
     safes[name] = safe;
     owners[msg.sender] = name;
 
+    uint256 price = getPrice(0);
+    uint256 nextPrice = getPrice(1);
+
     productKeys[name][msg.sender]++;
     productKeysSupply[name]++;
     emit ProductCreated(safe, msg.sender, name);
-    emit ProductKeyBought(name, msg.sender, 1, 0, 0);
+    emit ProductKeyBought(name, msg.sender, 1, 0, 0, price, nextPrice);
   }
 
-  function getPrice(uint256 supply, uint256 amount) public pure returns (uint256) {
-    uint256 sum1 = supply == 0 ? 0 : (supply - 1 )* (supply) * (2 * (supply - 1) + 1) / 6;
-    uint256 sum2 = supply == 0 && amount == 1 
-    ? 
-    0 : 
-    (supply + amount - 1) * (supply + amount) * (2 * (supply + amount - 1) + 1) / 6;
-    uint256 summation = sum2 - sum1;
-    return summation * 1 ether / 16000;
+  function getPrice(uint256 supply) public pure returns (uint256) {
+    return supply * 1e15;
   }
 
-  function getBuyPrice(string memory productSlug, uint256 amount) public view returns (uint256) {
-    return getPrice(productKeysSupply[productSlug], amount);
+  function getBuyPrice(string memory productSlug) public view returns (uint256) {
+    return getPrice(productKeysSupply[productSlug]);
   }
 
-  function getSellPrice(string memory productSlug, uint256 amount) public view returns (uint256) {
-    return getPrice(productKeysSupply[productSlug] - amount, amount);
+  function getSellPrice(string memory productSlug) public view returns (uint256) {
+    return getPrice(productKeysSupply[productSlug] - 1);
   }
 
-  function getBuyPriceAfterFee(string memory productSlug, uint256 amount) public view returns (uint256) {
-    uint256 price = getBuyPrice(productSlug, amount);
+  function getBuyPriceAfterFee(string memory productSlug) public view returns (uint256) {
+    uint256 price = getBuyPrice(productSlug);
 
-    uint256 subjectFee = (price * productFeePercent) / 1 ether;
-    return price + subjectFee;
+    uint256 productFee = (price * productFeePercent) / 1 ether;
+    return price + productFee;
   }
 
-  function getSellPriceAfterFee(string memory productSlug, uint256 amount) public view returns (uint256) {
-    uint256 price = getSellPrice(productSlug, amount);
+  function getSellPriceAfterFee(string memory productSlug) public view returns (uint256) {
+    uint256 price = getSellPrice(productSlug);
 
     uint256 subjectFee = price * productFeePercent / 1 ether;
     return price - subjectFee;
@@ -117,9 +122,11 @@ contract ProductKeys {
     uint256 supply = productKeysSupply[productSlug];
     require(supply != 0, "Product does not exist yet");
 
-    uint256 price = getPrice(supply, 1);
+    uint256 nextPrice = getPrice(supply + 1);
+    uint256 price = getPrice(supply);
     uint256 subjectFee = price * productFeePercent / 1 ether;
-    require(msg.value >= price + subjectFee, "Insufficient payment");
+    uint256 holderFee = price * holderFeePercent / 1 ether;
+    require(msg.value >= price + subjectFee + holderFee, "Insufficient payment");
     
     productKeys[productSlug][msg.sender] += 1;
     productKeysSupply[productSlug] = supply + 1;
@@ -128,7 +135,9 @@ contract ProductKeys {
       msg.sender,
       1,
       price + subjectFee,
-      subjectFee
+      subjectFee,
+      price,
+      nextPrice
     );
 
     address safe = safes[productSlug];
@@ -138,23 +147,33 @@ contract ProductKeys {
     require(success1, "Funds transfer failed");
   }
 
-  function sellKeys(string memory productSlug, uint256 amount) public payable {
+  function sellKeys(string memory productSlug) public payable {
     uint256 supply = productKeysSupply[productSlug];
 
-    require(supply > amount, "Cannot sell last key");
-    require(productKeys[productSlug][msg.sender] >= amount, "Insufficient keys");
+    require(supply > 1, "Cannot sell last key");
+    require(productKeys[productSlug][msg.sender] >= 1, "Insufficient keys");
 
-    uint256 price = getPrice(supply - amount, amount);
+
+    uint256 price = getPrice(supply - 1);    
     uint256 subjectFee = price * productFeePercent / 1 ether;
 
-    productKeys[productSlug][msg.sender] -= amount;
-    productKeysSupply[productSlug] = supply - amount;
-    emit productKeysold(
+    uint256 nextPrice = 0;
+    
+    if (price > 0) {
+      nextPrice = getPrice(supply - 2);
+    }
+
+    productKeys[productSlug][msg.sender] -= 1;
+    productKeysSupply[productSlug] = supply - 1;
+
+    emit ProductKeySold(
       productSlug,
       msg.sender,
-      amount,
+      1,
       price - subjectFee,
-      subjectFee
+      subjectFee,
+      price,
+      nextPrice
     );
 
     address safe = safes[productSlug];
@@ -166,5 +185,9 @@ contract ProductKeys {
     (bool success2, ) = safe.call{value: subjectFee}("");
 
     require(success1 && success2, "Funds transfer failed");
+  }
+
+  function claimHolderFees(string memory productSlug) public payable {
+    // TODO on a next iteration
   }
 }

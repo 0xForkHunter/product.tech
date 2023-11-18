@@ -6,7 +6,7 @@ dataSources:
     name: ProductKeys
     network: celo-alfajores
     source:
-      address: "0x8b8eF71BAa1483c87E679B23365E13bB110c8B79"
+      address: "0xE60f5Ef3E822D4a46620ba2e382b752941214eca"
       abi: ProductKeys
       startBlock: 20974356
     mapping:
@@ -21,8 +21,8 @@ dataSources:
       eventHandlers:
         - event: ProductCreated(indexed address,indexed address,string)
           handler: handleProductCreated
-        - event: ProductKeyBought(string,indexed address,uint256,uint256,uint256)
+        - event: ProductKeyBought(string,indexed address,uint256,uint256,uint256,uint256,uint256)
           handler: handleProductKeyBought
-        - event: productKeysold(string,indexed address,uint256,uint256,uint256)
+        - event: ProductKeySold(string,indexed address,uint256,uint256,uint256,uint256,uint256)
           handler: handleProductKeySold
       file: ./src/mapping.ts

@@ -47,7 +47,7 @@ describe("Product Keys", function () {
       it("should buy a key", async () => {
         await productKeysContract.connect(creator).createProduct(safeAddress.address, "product-tech");
 
-        const price = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const price = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const action = productKeysContract.connect(buyer1).buyKey("product-tech", { value: price });
 
         await expect(action).not.to.be.reverted;
@@ -60,18 +60,18 @@ describe("Product Keys", function () {
       it("should sell a key", async () => {
         await productKeysContract.connect(creator).createProduct(safeAddress.address, "product-tech");
 
-        const firstPrice = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const firstPrice = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const firstPurchase = productKeysContract.connect(buyer1).buyKey("product-tech", { value: firstPrice });
         await expect(firstPurchase).not.to.be.reverted;
 
-        const secondPrice = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const secondPrice = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const secondPurchase = productKeysContract.connect(buyer1).buyKey("product-tech", { value: secondPrice });
         await expect(secondPurchase).not.to.be.reverted;
 
         const onchainKeySupply = await productKeysContract.productKeys("product-tech", buyer1.address);
         expect(onchainKeySupply).to.equal(2);
 
-        const sellAction = productKeysContract.connect(buyer1).sellKeys("product-tech", 1);
+        const sellAction = productKeysContract.connect(buyer1).sellKeys("product-tech");
         await expect(sellAction).not.to.be.reverted;
 
         const onchainKeySupplyAfter = await productKeysContract.productKeys("product-tech", buyer1.address);
@@ -85,15 +85,15 @@ describe("Product Keys", function () {
         
         const balanceBefore = await ethers.provider.getBalance(safeAddress.address);
 
-        const firstPrice = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const firstPrice = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const firstPurchase = productKeysContract.connect(buyer1).buyKey("product-tech", { value: firstPrice });
         await expect(firstPurchase).not.to.be.reverted;
 
-        const secondPrice = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const secondPrice = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const secondPurchase = productKeysContract.connect(buyer1).buyKey("product-tech", { value: secondPrice });
         await expect(secondPurchase).not.to.be.reverted;
 
-        const thirdPrice = await productKeysContract.getBuyPriceAfterFee("product-tech", 1);
+        const thirdPrice = await productKeysContract.getBuyPriceAfterFee("product-tech");
         const thirdPurchase = productKeysContract.connect(buyer1).buyKey("product-tech", { value: thirdPrice });
         await expect(thirdPurchase).not.to.be.reverted;
 

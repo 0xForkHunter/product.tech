@@ -3,6 +3,8 @@ type Product @entity {
   supply: BigInt!
   submitterAddress: ID!
   holders: [KeyHolder!]! @derivedFrom(field: "product")
+  buyPrice: BigInt!
+  sellPrice: BigInt!
 }
 
 type KeyHolder @entity {
