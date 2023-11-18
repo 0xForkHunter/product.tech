@@ -15,6 +15,9 @@ module ProductHunt
           thumbnail {
             url
           }
+          media {
+            url
+          }
         }
       }
     GRAPHQL

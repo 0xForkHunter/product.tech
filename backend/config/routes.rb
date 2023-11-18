@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :products, param: :slug, only: [:index, :create]
+  resources :products, param: :slug, only: [:index, :create] do
+    get :preview, on: :collection
+  end
 end

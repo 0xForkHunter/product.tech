@@ -14,6 +14,7 @@ class ProductBlueprint < Blueprinter::Base
       :votes_count,
       :safe_address,
       :product_creation_date,
-      :submitter_address
+      :submitter_address,
+      :media
   end
 end

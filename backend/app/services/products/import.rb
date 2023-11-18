@@ -8,12 +8,13 @@ module Products
     option :slug
     option :submitter_address
     option :safe_address
+    option :preview, default: false
 
     def call
       raise "Product slug is mandatory" unless slug
       raise "Product not found" unless product_hunt_object
 
-      Product.create!(product_data)
+      preview ? Product.new(product_data) : Product.create!(product_data)
     end
 
     private
@@ -32,7 +33,8 @@ module Products
         tagline: product_hunt_object.tagline,
         product_hunt_url: product_hunt_object.url,
         website_url: product_hunt_object.website,
-        thumbnail_url: product_hunt_object.thumbnail.url
+        thumbnail_url: product_hunt_object.thumbnail.url,
+        media: product_hunt_object.media.map(&:url)
       }
     end
 
