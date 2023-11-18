@@ -3,7 +3,7 @@
 import { BASE_API_URL } from "@/data/constants";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-interface Product {
+export interface Product {
   description: string;
   id: number;
   name: string;
@@ -45,7 +45,7 @@ export const useGetProductFromSlug = (slug?: string) => {
 export const useCreateProductApi = () => {
   return useMutation({
     mutationFn: (args: { slug: string; submitter_address: string; safe_address: string }) =>
-      fetch(BASE_API_URL + "/products", { method: "POST", body: JSON.stringify(args) })
+      fetch(BASE_API_URL + "/products", { method: "POST", body: JSON.stringify({ product: args }) })
         .then((res) => res.json())
         .then((res) => res.product as Product),
   });
