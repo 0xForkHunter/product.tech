@@ -15,9 +15,9 @@ class ProductsController < ApplicationController
 
   def preview
     product = Products::Import.new(
-      slug: product_params[:slug],
-      submitter_address: product_params[:submitter_address],
-      safe_address: product_params[:safe_address],
+      slug: params[:slug],
+      submitter_address: nil,
+      safe_address: nil,
       preview: true
     ).call
 
