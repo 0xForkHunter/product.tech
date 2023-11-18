@@ -67,7 +67,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           {data.description}
         </Typography>
         <Divider />
-        <Typography>Holders</Typography>
+        <Typography>Supporters</Typography>
         {holders?.keyHolders.flatMap((item) =>
           item.product.holders.map((holder) => (
             <UserItem
