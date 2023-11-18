@@ -84,7 +84,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <Typography color="accent" weight="light" fontVariant="small" style={{ flexBasis: "100%" }}>
             Product earnings: 0.0002 ETH
           </Typography>
-          <Tooltip content="Only the product owner can collect product owners">
+          <Tooltip content="Only the product owner can collect product earnings">
             <Button style={{ width: "200px" }} disabled size="small">
               Collect
             </Button>
