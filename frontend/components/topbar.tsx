@@ -16,6 +16,7 @@ export const Topbar = () => {
         zIndex: 2,
         padding: "8px",
         borderBottom: "1px solid #CDD7E1",
+        backgroundColor: "white",
       }}
     >
       <Image

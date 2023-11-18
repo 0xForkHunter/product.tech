@@ -24,8 +24,6 @@ export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
     enabled: !!product.slug,
   });
 
-  console.log(holders);
-  console.log(formatToDisplayString(holders?.product.buypPrice && BigInt(holders?.product.buypPrice), 18, 5));
   return (
     <Flex x yc gap2>
       <div style={{ height: "50px", width: "50px" }}>
@@ -47,7 +45,7 @@ export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
             : `${holders?.product.holders.length} holders • Price ${formatToDisplayString(
                 holders?.product.buyPrice,
                 18
-              )} CELO`}
+              )} ETH`}
         </Typography>
       </Flex>
     </Flex>

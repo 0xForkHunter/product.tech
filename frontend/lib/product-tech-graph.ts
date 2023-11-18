@@ -26,7 +26,7 @@ query GetHoldings($address: ID){
 `;
 
 export interface fetchHoldersResponse {
-  product: {
+  product?: {
     supply: string;
     buyPrice: string;
     id: string;

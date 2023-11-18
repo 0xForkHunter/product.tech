@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchHolders } from "@/lib/product-tech-graph";
 import { UserItem } from "@/components/user-item";
 import { useAccount } from "wagmi";
+import { formatToDisplayString } from "@/lib/utils";
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const { data } = useGetProductFromSlug(params.slug);
@@ -31,9 +32,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   console.log(holders);
   const { address } = useAccount();
   const myHeldKeys = useMemo(() => {
-    return holders?.product.holders.find((holder) => holder.wallet.toLowerCase() === address?.toLowerCase())
+    return holders?.product?.holders.find((holder) => holder.wallet.toLowerCase() === address?.toLowerCase())
       ?.keysAmount;
-  }, [address, holders?.product.holders]);
+  }, [address, holders?.product?.holders]);
 
   if (!data)
     return (
@@ -69,20 +70,23 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         </Flex>
         <Flex x yc gap3 style={{ padding: "0 16px" }}>
           <Typography color="accent" weight="light" fontVariant="small">
-            You own {myHeldKeys} keys
+            Total keys {holders?.product?.supply}
           </Typography>
           <Typography color="accent" weight="light" fontVariant="small">
-            Total keys: {holders?.product.supply}
+            Price: {formatToDisplayString(holders?.product?.buyPrice, 18)} ETH
           </Typography>
         </Flex>
         <Typography style={{ padding: "16px" }} weight="light" fontVariant="body">
           {data.description}
         </Typography>
+
+        <Typography style={{ padding: "16px" }} fontVariant="headingFour"></Typography>
+
         <Divider />
         <Typography style={{ padding: "16px" }} fontVariant="headingFour">
           Holders
         </Typography>
-        {holders?.product.holders.map((holder) => (
+        {holders?.product?.holders.map((holder) => (
           <UserItem
             key={holder.wallet}
             address={holder.wallet as `0x${string}`}
