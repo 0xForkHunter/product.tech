@@ -29,7 +29,7 @@ export const ProductProfile: FC<Props> = ({ product, showLink }) => {
             </IconButton>
           )}
         </Flex>
-        <Typography fontVariant="small" weight="light" style={{ marginTop: "-10px" }}>
+        <Typography fontVariant="small" weight="light" style={{ marginTop: "-5px" }}>
           {/* {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH */}
           {product.tagline}
         </Typography>

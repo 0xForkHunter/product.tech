@@ -11,13 +11,29 @@ import "react-slideshow-image/dist/styles.css";
 import { ProductItem } from "@/components/product-item";
 import { ProductProfile } from "@/components/product-profile";
 import { TradeKeyModal } from "@/components/trade-key-modal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useGetProductData } from "@/hooks/useProductTechContract";
+import { useQuery } from "@tanstack/react-query";
+import { fetchHolders } from "@/lib/product-tech-graph";
+import { UserItem } from "@/components/user-item";
+import { useAccount } from "wagmi";
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const { data } = useGetProductFromSlug(params.slug);
   const [buyModalState, setBuyModalState] = useState<"closed" | "buy" | "sell">("closed");
   const { buyPriceAfterFee } = useGetProductData(params.slug);
+  const { data: holders } = useQuery({
+    queryKey: ["holders", params.slug],
+    queryFn: () => fetchHolders(params.slug),
+    enabled: !!params.slug,
+  });
+
+  console.log(holders);
+  const { address } = useAccount();
+  // const myHeldKeys = useMemo(() => {
+  //   return holders?.keyHolders[0].product.holders() (item => item.product.holders.find(holder => holder.wallet.toLowerCase() === address?.toLowerCase()))
+  // }, [address, holders?.keyHolders])
+
   if (!data)
     return (
       <Flex y grow yc xc>
@@ -25,6 +41,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       </Flex>
     );
 
+  console.log(holders);
   return (
     <>
       {buyModalState !== "closed" && (
@@ -51,6 +68,15 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         </Typography>
         <Divider />
         <Typography>Holders</Typography>
+        {holders?.keyHolders.flatMap((item) =>
+          item.product.holders.map((holder) => (
+            <UserItem
+              key={holder.wallet}
+              address={holder.wallet as `0x${string}`}
+              subtitle={`Owns ${holder.keysAmount} keys`}
+            />
+          ))
+        )}
       </Flex>
     </>
   );
