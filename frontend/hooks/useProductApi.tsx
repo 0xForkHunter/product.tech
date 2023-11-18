@@ -1,9 +1,9 @@
 "use client";
 
 import { BASE_API_URL } from "@/data/constants";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-interface Product {
+export interface Product {
   description: string;
   id: number;
   name: string;
@@ -18,6 +18,7 @@ interface Product {
   thumbnail_url: string;
   votes_count: number;
   website_url: string;
+  media: string[];
 }
 
 export const useGetProducts = () => {
@@ -30,12 +31,22 @@ export const useGetProducts = () => {
   });
 };
 
-export const useGetProductFromSlug = (slug: string) => {
+export const useGetProductFromSlug = (slug?: string) => {
   return useQuery({
+    enabled: !!slug,
     queryKey: ["useGetProducts", slug],
     queryFn: () =>
-      fetch(BASE_API_URL + "/products", { headers: { slug: slug } })
+      fetch(BASE_API_URL + `/products/preview?slug=${slug}`)
         .then((res) => res.json())
-        .then((res) => res.products[0] as Product),
+        .then((res) => res.product as Product),
+  });
+};
+
+export const useCreateProductApi = () => {
+  return useMutation({
+    mutationFn: (args: { slug: string; submitter_address: string; safe_address: string }) =>
+      fetch(BASE_API_URL + "/products", { method: "POST", body: JSON.stringify({ product: args }) })
+        .then((res) => res.json())
+        .then((res) => res.product as Product),
   });
 };

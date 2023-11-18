@@ -996,6 +996,20 @@
   dependencies:
     "@babel/runtime" "^7.23.2"
 
+"@mui/joy@^5.0.0-beta.15":
+  version "5.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@mui/joy/-/joy-5.0.0-beta.15.tgz#38f846aebc403699a3264481b9d635403c096518"
+  integrity sha512-CJU6DPs6yGMIGiZpku4audyAKcAXBM9vgeeegXVt68dGhAXeSSVd+UKynUoj4gcwh0Zxbfxav6oohVYoGX6bpg==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    "@mui/base" "5.0.0-beta.24"
+    "@mui/core-downloads-tracker" "^5.14.18"
+    "@mui/system" "^5.14.18"
+    "@mui/types" "^7.2.9"
+    "@mui/utils" "^5.14.18"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+
 "@mui/material@^5.14.18":
   version "5.14.18"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.18.tgz#d0a89be3e27afe90135d542ddbf160b3f34e869c"
@@ -1605,6 +1619,16 @@
   integrity sha512-CD+AkXzg8J72JrE6ocmuBEJfGzEzu/bzkD6sFXFDDB5yji9N20JofXZlN6n0+CaPJuIi+e4YLCbGsyPFKkfNQA==
   dependencies:
     "@tanstack/query-core" "5.8.3"
+
+"@trendyol-js/react-carousel@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@trendyol-js/react-carousel/-/react-carousel-3.0.2.tgz#2b64f8edd69b2dfbba79d0ecceec7b3949ed86f4"
+  integrity sha512-V/Z7N2CXEBCNWwJfOGeE9MNfAvWj/eK/KIwoautb8mp/g9pc4ZHCIuRkmH4viUxJiv8f+WTCuPR2HBzZv8+p1w==
+
+"@tweenjs/tween.js@^18.6.4":
+  version "18.6.4"
+  resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-18.6.4.tgz#40a3d0a93647124872dec8e0fd1bd5926695b6ca"
+  integrity sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==
 
 "@types/bn.js@^5.1.0", "@types/bn.js@^5.1.1":
   version "5.1.5"
@@ -6630,6 +6654,14 @@ react-native-webview@^11.26.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
+react-slideshow-image@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/react-slideshow-image/-/react-slideshow-image-4.3.0.tgz#6939fbd05a66addb55faddd4d736f64692e15a7d"
+  integrity sha512-SPiZtZRcBYAtin5Nva5ZgnLlMQHCcccBInkJ2Q8PEBBBMGhXZgSlAm+3VoMDjKUWYfNjTN3gEL6y+SrBzBeLXQ==
+  dependencies:
+    "@tweenjs/tween.js" "^18.6.4"
+    resize-observer-polyfill "^1.5.1"
+
 react-toastify@^9.1.3:
   version "9.1.3"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.3.tgz#1e798d260d606f50e0fab5ee31daaae1d628c5ff"
@@ -6786,6 +6818,11 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-alpn@^1.0.0, resolve-alpn@^1.2.0:
   version "1.2.1"

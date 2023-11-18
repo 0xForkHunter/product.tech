@@ -8,20 +8,15 @@ import { CircularProgress } from "@mui/material";
 import { useAccount, useNetwork, useWalletClient } from "wagmi";
 import { useEthersSigner } from "@/hooks/useEthersSigner";
 
-interface CreateSafeProps extends React.HTMLAttributes<HTMLDivElement> {
-  setSafe: Function;
-}
-
-export function CreateSafe({ setSafe }: CreateSafeProps) {
+export const useCreateSafe = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { chain } = useNetwork();
   const signer = useEthersSigner({ chainId: chain?.id });
   const { address } = useAccount();
 
-  async function createSafe(event: React.SyntheticEvent) {
+  async function createSafe() {
     if (!signer || !address) throw new Error("Wallet not connected");
 
-    event.preventDefault();
     setIsLoading(true);
 
     const ethAdapter = new EthersAdapter({
@@ -40,14 +35,9 @@ export function CreateSafe({ setSafe }: CreateSafeProps) {
     const safeAddress = await safeSdkOwner1.getAddress();
 
     console.log("SAFE ADDRESS: ", safeAddress);
-    setSafe(safeAddress);
     setIsLoading(false);
+    return safeAddress;
   }
 
-  return (
-    <Button onClick={createSafe} disabled={isLoading}>
-      {isLoading && <CircularProgress />}
-      Create safe
-    </Button>
-  );
-}
+  return { isLoading, createSafe };
+};

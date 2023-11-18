@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Flex } from "./flex";
 import { Avatar, Typography } from "@ensdomains/thorin";
 import styled from "styled-components";
+import { Product } from "@/hooks/useProductApi";
+import { ProductProfile } from "./product-profile";
 
 const Container = styled(Flex)`
   &:hover {
@@ -13,19 +15,10 @@ const Container = styled(Flex)`
 `;
 
 interface Props {
-  slug: string;
-  avatar: string;
-  name: string;
-  // numberOfHolders: number;
-  // buyPrice: bigint;
+  product: Product;
 }
 
-export function ProductItem({
-  slug,
-  // numberOfHolders, buyPrice,
-  avatar,
-  name,
-}: Props) {
+export function ProductItem({ product }: Props) {
   const router = useRouter();
   const numberOfHolders = 3;
   const buyPrice = 1000000000000000000n;
@@ -36,19 +29,9 @@ export function ProductItem({
       xsb
       yc
       style={{ cursor: "pointer", padding: "8px 16px" }}
-      onClick={() => router.push(`/product/${slug}`)}
+      onClick={() => router.push(`/app/product/${product.slug}`)}
     >
-      <Flex x yc gap2>
-        <div style={{ height: "50px", width: "50px" }}>
-          <Avatar shape="circle" label="avatar" src={avatar} />
-        </div>
-        <Flex y gap={0.5}>
-          <Typography fontVariant="bodyBold">{name}</Typography>
-          <Typography fontVariant="small" color="accent" weight="light">
-            {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH
-          </Typography>
-        </Flex>
-      </Flex>
+      <ProductProfile product={product} />
       <ChevronRight />
     </Container>
   );
