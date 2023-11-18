@@ -32,7 +32,7 @@ export const useCreateSafe = () => {
     //The owner address should normally be the contract
 
     const privateKey = generatePrivateKey();
-    const account = privateKeyToAccount("0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80");
+    const account = privateKeyToAccount(privateKey);
 
     const safeAccountConfig: SafeAccountConfig = {
       owners: [account.address],
