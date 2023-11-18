@@ -23,6 +23,7 @@
     "@tanstack/react-query": "^5.8.4",
     "@trendyol-js/react-carousel": "^3.0.2",
     "@web3modal/wagmi": "^3.3.2",
+    "@worldcoin/idkit": "^0.4.9",
     "axios": "^1.6.2",
     "next": "14.0.3",
     "react": "^18",

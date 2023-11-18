@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   resources :products, param: :slug, only: [:index, :create] do
     get :preview, on: :collection
   end
+
+  resources :worldcoin, only: [] do
+    put :verify_proof, on: :collection
+  end
 end
