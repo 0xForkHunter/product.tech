@@ -42,8 +42,8 @@ export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
           {/* {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH */}
           {subtitle
             ? subtitle
-            : `${holders?.product.holders.length} holders • Price ${formatToDisplayString(
-                holders?.product.buyPrice,
+            : `${holders?.product?.holders.length} holders • Price ${formatToDisplayString(
+                holders?.product?.buyPrice,
                 18
               )} ETH`}
         </Typography>
