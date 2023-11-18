@@ -29,7 +29,7 @@ export function UserItem({ address, subtitle }: Props) {
       xsb
       yc
       style={{ cursor: "pointer", padding: "8px 16px" }}
-      onClick={() => router.push(`/profile/${address}`)}
+      onClick={() => router.push(`/app/profile/${address}`)}
     >
       <UserProfile address={address} subtitle={subtitle} />
       <ChevronRight />

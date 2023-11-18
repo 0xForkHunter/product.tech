@@ -53,8 +53,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           side={buyModalState}
         />
       )}
-      <Flex y style={{ padding: "16px" }} gap2>
-        <Flex x xsb fullwidth>
+      <Flex y>
+        <Flex x xsb fullwidth style={{ padding: "16px" }}>
           <ProductProfile product={data} showLink />
           <Flex x gap1>
             <Button onClick={() => setBuyModalState("sell")} colorStyle="accentSecondary">
@@ -63,11 +63,13 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <Button onClick={() => setBuyModalState("buy")}>Buy</Button>
           </Flex>
         </Flex>
-        <Typography weight="light" fontVariant="body">
+        <Typography style={{ padding: "16px" }} weight="light" fontVariant="body">
           {data.description}
         </Typography>
         <Divider />
-        <Typography>Supporters</Typography>
+        <Typography style={{ padding: "16px" }} fontVariant="headingFour">
+          Supporters
+        </Typography>
         {holders?.keyHolders.flatMap((item) =>
           item.product.holders.map((holder) => (
             <UserItem

@@ -22,11 +22,15 @@ export default function ProfilePage({ params }: { params: { address: `0x${string
   const isOwnProfile = params.address.toLowerCase() === address?.toLowerCase();
   console.log(holdings);
   return (
-    <Flex y style={{ padding: "16px" }} gap2>
-      <UserProfile address={params.address} subtitle={shortAddress(params.address)} />
-      {isOwnProfile && <Flex></Flex>}
+    <Flex y>
+      <Flex y gap1 style={{ padding: "16px" }}>
+        <UserProfile address={params.address} subtitle={shortAddress(params.address)} />
+        {isOwnProfile && <Flex></Flex>}
+      </Flex>
       <Divider />
-      <Typography>Supported products</Typography>
+      <Typography style={{ padding: "16px" }} fontVariant="headingFour">
+        Supported products
+      </Typography>
       {holdings?.keyHolders.map((item) => (
         <ProductItem key={item.product.id} slug={item.product.id} />
       ))}
