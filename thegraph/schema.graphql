@@ -1,0 +1,13 @@
+type Product @entity {
+  id: ID!
+  supply: BigInt!
+  submitterAddress: ID!
+  holders: [KeyHolder!]! @derivedFrom(field: "product")
+}
+
+type KeyHolder @entity {
+  id: ID!
+  product: Product!
+  keysAmount: BigInt!
+  wallet: ID!
+}
