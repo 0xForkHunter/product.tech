@@ -20,10 +20,11 @@ const Container = styled(Flex)`
 
 interface Props {
   product?: Product;
+  subtitle?: string;
   slug?: string;
 }
 
-export function ProductItem({ product, slug }: Props) {
+export function ProductItem({ product, slug, subtitle }: Props) {
   const router = useRouter();
 
   const { data: prod } = useGetProductFromSlug(slug, { enabled: !product });
@@ -43,7 +44,7 @@ export function ProductItem({ product, slug }: Props) {
       style={{ cursor: "pointer", padding: "8px 16px" }}
       onClick={() => router.push(`/app/product/${internalProduct.slug}`)}
     >
-      <ProductProfile product={internalProduct} />
+      <ProductProfile subtitle={subtitle || internalProduct.tagline} product={internalProduct} />
       <ChevronRight />
     </Container>
   );
