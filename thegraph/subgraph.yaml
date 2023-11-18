@@ -6,7 +6,7 @@ dataSources:
     name: ProductKeys
     network: celo-alfajores
     source:
-      address: "0xE60f5Ef3E822D4a46620ba2e382b752941214eca"
+      address: "0x277b12B641f28B7Bb24601072D34fc48c706af06"
       abi: ProductKeys
       startBlock: 20974356
     mapping:

@@ -125,8 +125,7 @@ contract ProductKeys {
     uint256 nextPrice = getPrice(supply + 1);
     uint256 price = getPrice(supply);
     uint256 subjectFee = price * productFeePercent / 1 ether;
-    uint256 holderFee = price * holderFeePercent / 1 ether;
-    require(msg.value >= price + subjectFee + holderFee, "Insufficient payment");
+    require(msg.value >= price + subjectFee, "Insufficient payment");
     
     productKeys[productSlug][msg.sender] += 1;
     productKeysSupply[productSlug] = supply + 1;
