@@ -7,6 +7,8 @@ query GetHolders($slug: ID){
       keysAmount
       wallet
     }
+    supply
+    buyPrice
   }
 }
 `;
@@ -14,6 +16,7 @@ query GetHolders($slug: ID){
 const GetHoldings = `
 query GetHoldings($address: ID){
   keyHolders(where: {wallet: $address}) {
+    keysAmount
     product {
       supply
       id
@@ -25,6 +28,7 @@ query GetHoldings($address: ID){
 export interface fetchHoldersResponse {
   product: {
     supply: string;
+    buyPrice: string;
     id: string;
     holders: {
       wallet: string;
@@ -54,6 +58,7 @@ export const fetchHolders = async (slug: string) => {
 
 export interface fetchHoldingsResponse {
   keyHolders: {
+    keysAmount: string;
     product: {
       supply: string;
       id: string;

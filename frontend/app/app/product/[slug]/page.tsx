@@ -30,9 +30,10 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
   console.log(holders);
   const { address } = useAccount();
-  // const myHeldKeys = useMemo(() => {
-  //   return holders?.keyHolders[0].product.holders() (item => item.product.holders.find(holder => holder.wallet.toLowerCase() === address?.toLowerCase()))
-  // }, [address, holders?.keyHolders])
+  const myHeldKeys = useMemo(() => {
+    return holders?.product.holders.find((holder) => holder.wallet.toLowerCase() === address?.toLowerCase())
+      ?.keysAmount;
+  }, [address, holders?.product.holders]);
 
   if (!data)
     return (
@@ -41,7 +42,6 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       </Flex>
     );
 
-  console.log(holders);
   return (
     <>
       {buyModalState !== "closed" && (
@@ -55,20 +55,32 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       )}
       <Flex y>
         <Flex x xsb fullwidth style={{ padding: "16px" }}>
-          <ProductProfile product={data} showLink />
+          <ProductProfile product={data} showLink subtitle={data.tagline} />
           <Flex x gap1>
-            <Button onClick={() => setBuyModalState("sell")} colorStyle="accentSecondary">
-              Sell
+            {myHeldKeys && Number(myHeldKeys) > 0 && (
+              <Button size="small" onClick={() => setBuyModalState("sell")} colorStyle="accentSecondary">
+                Sell
+              </Button>
+            )}
+            <Button size="small" onClick={() => setBuyModalState("buy")}>
+              Buy
             </Button>
-            <Button onClick={() => setBuyModalState("buy")}>Buy</Button>
           </Flex>
+        </Flex>
+        <Flex x yc gap3 style={{ padding: "0 16px" }}>
+          <Typography color="accent" weight="light" fontVariant="small">
+            You own {myHeldKeys} keys
+          </Typography>
+          <Typography color="accent" weight="light" fontVariant="small">
+            Total keys: {holders?.product.supply}
+          </Typography>
         </Flex>
         <Typography style={{ padding: "16px" }} weight="light" fontVariant="body">
           {data.description}
         </Typography>
         <Divider />
         <Typography style={{ padding: "16px" }} fontVariant="headingFour">
-          Supporters
+          Holders
         </Typography>
         {holders?.product.holders.map((holder) => (
           <UserItem

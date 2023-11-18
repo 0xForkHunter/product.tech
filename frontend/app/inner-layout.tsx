@@ -21,7 +21,7 @@ const metadata = {
 };
 const chains = [celoAlfajores];
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
-createWeb3Modal({ wagmiConfig, projectId, chains });
+createWeb3Modal({ wagmiConfig, projectId, chains, themeMode: "light" });
 
 const queryClient = new QueryClient({
   defaultOptions: {

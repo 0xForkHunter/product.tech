@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { Product } from "@/hooks/useProductApi";
 import { FC } from "react";
 import { IconButton } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { fetchHolders } from "@/lib/product-tech-graph";
 
 interface Props {
   product: Product;
@@ -16,6 +18,14 @@ interface Props {
 }
 
 export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
+  const { data: holders } = useQuery({
+    queryKey: ["holders", product.slug],
+    queryFn: () => fetchHolders(product.slug),
+    enabled: !!product.slug,
+  });
+
+  console.log(holders);
+  console.log(formatToDisplayString(holders?.product.buypPrice && BigInt(holders?.product.buypPrice), 18, 5));
   return (
     <Flex x yc gap2>
       <div style={{ height: "50px", width: "50px" }}>
@@ -32,7 +42,12 @@ export const ProductProfile: FC<Props> = ({ product, subtitle, showLink }) => {
         </Flex>
         <Typography fontVariant="small" weight="light" style={{ marginTop: "-5px" }}>
           {/* {numberOfHolders.toString()} holders • Price {formatToDisplayString(buyPrice, 18)} ETH */}
-          {subtitle}
+          {subtitle
+            ? subtitle
+            : `${holders?.product.holders.length} holders • Price ${formatToDisplayString(
+                holders?.product.buyPrice,
+                18
+              )} CELO`}
         </Typography>
       </Flex>
     </Flex>

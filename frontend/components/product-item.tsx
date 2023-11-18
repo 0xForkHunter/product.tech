@@ -44,7 +44,7 @@ export function ProductItem({ product, slug, subtitle }: Props) {
       style={{ cursor: "pointer", padding: "8px 16px" }}
       onClick={() => router.push(`/app/product/${internalProduct.slug}`)}
     >
-      <ProductProfile subtitle={subtitle || internalProduct.tagline} product={internalProduct} />
+      <ProductProfile subtitle={subtitle} product={internalProduct} />
       <ChevronRight />
     </Container>
   );

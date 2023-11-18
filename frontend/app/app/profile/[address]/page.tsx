@@ -38,6 +38,7 @@ export default function ProfilePage({ params }: { params: { address: `0x${string
           <UserProfile address={params.address} subtitle={shortAddress(params.address)} />
           {isOwnProfile && (
             <Button
+              colorStyle="accentSecondary"
               style={{ width: "200px" }}
               size="small"
               disabled={open}
@@ -61,10 +62,10 @@ export default function ProfilePage({ params }: { params: { address: `0x${string
       )}
       <Divider />
       <Typography style={{ padding: "16px" }} fontVariant="headingFour">
-        Supported products
+        Products
       </Typography>
       {holdings?.keyHolders.map((item) => (
-        <ProductItem key={item.product.id} slug={item.product.id} />
+        <ProductItem key={item.product.id} slug={item.product.id} subtitle={`Owns ${item.keysAmount} keys`} />
       ))}
     </Flex>
   );
