@@ -1,0 +1,163 @@
+export const PRODUCT_TECH_ABI = [
+  {
+    inputs: [{ internalType: "uint256", name: "productFee", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "_safe", type: "address" },
+      { indexed: true, internalType: "address", name: "_owner", type: "address" },
+      { indexed: false, internalType: "string", name: "_productSlug", type: "string" },
+    ],
+    name: "ProductCreated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: "string", name: "_productSlug", type: "string" },
+      { indexed: true, internalType: "address", name: "_buyer", type: "address" },
+      { indexed: false, internalType: "uint256", name: "_amountOfKeys", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "_ethSpent", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "_ownerFee", type: "uint256" },
+    ],
+    name: "ProductKeyBought",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: "string", name: "_productSlug", type: "string" },
+      { indexed: true, internalType: "address", name: "_buyer", type: "address" },
+      { indexed: false, internalType: "uint256", name: "_amountOfKeys", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "_ethSpent", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "_ownerFee", type: "uint256" },
+    ],
+    name: "productKeysold",
+    type: "event",
+  },
+  {
+    inputs: [{ internalType: "string", name: "productSlug", type: "string" }],
+    name: "buyKey",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "safe", type: "address" },
+      { internalType: "string", name: "name", type: "string" },
+    ],
+    name: "createProduct",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "productSlug", type: "string" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "getBuyPrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "productSlug", type: "string" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "getBuyPriceAfterFee",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "supply", type: "uint256" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "getPrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "productSlug", type: "string" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "getSellPrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "productSlug", type: "string" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "getSellPriceAfterFee",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "owners",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "productFeePercent",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "", type: "string" },
+      { internalType: "address", name: "", type: "address" },
+    ],
+    name: "productKeys",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "", type: "string" }],
+    name: "productKeysSupply",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "protocolFeePercent",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "", type: "string" }],
+    name: "safes",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "productSlug", type: "string" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "sellKeys",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+] as const;

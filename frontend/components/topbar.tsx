@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Flex } from "./flex";
 import { useRouter } from "next/navigation";
-import { APP_LOGO_SMALL } from "@/constants";
+import { APP_LOGO_SMALL } from "@/data/constants";
 
 export const Topbar = () => {
   const router = useRouter();
@@ -10,7 +10,6 @@ export const Topbar = () => {
       x
       xsb
       yc
-      grow
       style={{
         position: "sticky",
         top: 0,

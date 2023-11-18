@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
-    <Flex y>
+    <Flex y grow>
       <Topbar />
       {children}
       <BottomNav />

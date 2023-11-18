@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={inter.className}
         style={{
+          display: "flex",
           maxWidth: "min(100vw, 500px)",
           minHeight: "100vh",
           margin: "auto",

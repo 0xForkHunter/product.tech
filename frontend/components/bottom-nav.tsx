@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useAccount } from "wagmi";
 import { Flex } from "./flex";
 import { Add, Person, Search } from "@mui/icons-material";
-import { MAIN_COLOR } from "@/constants";
+import { MAIN_COLOR } from "@/data/constants";
 import { Typography } from "@ensdomains/thorin";
 
 export function BottomNav() {
